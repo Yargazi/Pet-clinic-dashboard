@@ -27,11 +27,13 @@ const create = async (req: NextApiRequest, res: NextApiResponse) => {
   const patients = [patient];
   res.status(200).json({ patients });
 };
+
 const read = async (req: NextApiRequest, res: NextApiResponse) => {
   // load from database
-  const patients = [{ name: "Boc" }, { name: "Charlie" }];
+  const patients = [{ name: "Boc" }, { name: "Charlie" }, { name: "John" }];
   res.status(200).json({ patients });
 };
+
 const del = async (req: NextApiRequest, res: NextApiResponse) => {
   // delete from database
 };
