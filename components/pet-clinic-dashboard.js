@@ -1,10 +1,15 @@
 import React, { useMemo } from "react";
 import { useTable } from "react-table";
 
+import PencilIconcomponent from "../components/PencilIcon";
+import AddButtonComponent from "../components/AddButton";
+
+import ModalAdd from "../components/ModalAdd";
+
 export const PetClinicDashboard = () => {
   return (
     // Change whatever you want here. It's just an example of using tailwind
-    <div className="grid grid-rows-auto-1fr gap-y-4 p-4 md:p-8 max-w-screen-lg mx-auto">
+    <div className="grid grid-rows-auto-1fr gap-y-4 p-4 md:p-6 max-w-screen-lg mx-auto">
       <Title />
       <Table />
     </div>
@@ -21,16 +26,40 @@ const Table = () => {
   const data = useMemo(
     () => [
       {
-        col1: "Hello",
-        col2: "World",
+        name: "Hello",
+        phone: "",
       },
       {
-        col1: "react-table",
-        col2: "rocks",
+        name: "Alice",
+        phone: "0547125822",
+        petName: "falafel",
+        age: "8",
+        petType: "dog",
+        icon: <PencilIconcomponent />,
       },
       {
-        col1: "whatever",
-        col2: "you want",
+        name: "Костя",
+        phone: "0547125833",
+        petName: "Блинчик",
+        age: "1",
+        petType: "еда",
+        icon: <PencilIconcomponent />,
+      },
+      {
+        name: "Саша",
+        phone: "0547125844",
+        petName: "Брюс",
+        age: "10",
+        petType: "dog",
+        icon: <PencilIconcomponent />,
+      },
+      {
+        name: "Катя",
+        phone: "0547125811",
+        petName: "Рекс",
+        age: "8",
+        petType: "dog",
+        icon: <PencilIconcomponent />,
       },
     ],
     []
@@ -39,12 +68,28 @@ const Table = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "Column 1",
-        accessor: "col1", // accessor is the "key" in the data
+        Header: "Name",
+        accessor: "name", // accessor is the "key" in the data
       },
       {
-        Header: "Column 2",
-        accessor: "col2",
+        Header: "Phone",
+        accessor: "phone",
+      },
+      {
+        Header: "Pet name",
+        accessor: "petName",
+      },
+      {
+        Header: "Pet age",
+        accessor: "age",
+      },
+      {
+        Header: "Pet type",
+        accessor: "petType",
+      },
+      {
+        header: "",
+        accessor: "icon",
       },
     ],
     []
@@ -56,9 +101,17 @@ const Table = () => {
 
   return (
     <>
-      <div>Dashboard Table</div>
+      <AddButtonComponent />
 
-      <table {...getTableProps()}>
+      <ModalAdd />
+      <table
+        {...getTableProps()}
+        style={{
+          borderRight: "solid 3px #020675",
+          borderLeft: "solid 3px #020675",
+          borderBottom: "solid 3px #020675",
+        }}
+      >
         <thead>
           {
             // Loop over the header rows
@@ -69,7 +122,15 @@ const Table = () => {
                   // Loop over the headers in each row
                   headerGroup.headers.map((column) => (
                     // Apply the header cell props
-                    <th key={column.id} {...column.getHeaderProps()}>
+                    <th
+                      key={column.id}
+                      {...column.getHeaderProps()}
+                      style={{
+                        background: "#1F2937",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
+                    >
                       {
                         // Render the header
                         column.render("Header")
@@ -96,7 +157,16 @@ const Table = () => {
                     row.cells.map((cell) => {
                       // Apply the cell props
                       return (
-                        <td key={cell.id} {...cell.getCellProps()}>
+                        <td
+                          key={cell.id}
+                          {...cell.getCellProps()}
+                          className={"p-2 "}
+                          style={{
+                            border: "solid 2px white",
+                            background: "#c7e2fc",
+                            textAlign: "center",
+                          }}
+                        >
                           {
                             // Render the cell contents
                             cell.render("Cell")
