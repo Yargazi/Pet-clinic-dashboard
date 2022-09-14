@@ -42,7 +42,7 @@ const NewElementInTable = () => {
         className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
         placeholder="Pet Birth Date"
       ></input>
-      <div className="flex justify-end ">
+      <div className="flex-1 justify-start basis-auto">
         <Dropdown />
       </div>
     </div>

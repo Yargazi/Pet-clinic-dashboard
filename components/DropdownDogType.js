@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
@@ -8,11 +8,18 @@ function classNames(...classes) {
 }
 
 export default function Dropdown() {
+  const typesOfPets = ["Dog", "Cat", "fish", "Parrot", "fox"];
+
+  const [petType, setPetType] = useState(null);
+
+  const handlePetTypeChange = (event) => {
+    // setPetType(event.target.value);
+  };
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative flex-1 ">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center appearance-none rounded-none rounded-b-md border border-gray-300 px-48 py-2 text-gray-900  bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:ring-offset-1 focus:ring-offset-gray-100">
-          Pet Type
+        <Menu.Button className="flex flex-row shrink-0 justify-between flex-nowrap grow w-full  rounded-none rounded-b-md border border-gray-300 text-gray-900  bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:ring-offset-0 focus:ring-offset-gray-100">
+          <p>{petType ? petType : "Select pet type"}</p>
           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
         </Menu.Button>
       </div>
@@ -26,48 +33,30 @@ export default function Dropdown() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className=" right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Dog
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Cat
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Parrot
-                </a>
-              )}
-            </Menu.Item>
-          </div>
+        <Menu.Items className=" right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          {typesOfPets?.map((pet) => (
+            <div className="py-1">
+              <Menu.Item key={pet}>
+                {({ active }) => (
+                  <a
+                    href="#"
+                    value={pet}
+                    onClick={() => {
+                      if (pet !== petType) {
+                        setPetType(pet);
+                      }
+                    }}
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    {pet}
+                  </a>
+                )}
+              </Menu.Item>
+            </div>
+          ))}
         </Menu.Items>
       </Transition>
     </Menu>

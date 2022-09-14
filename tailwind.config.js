@@ -4,7 +4,9 @@ module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
+
   theme: {
     colors: {
       primary: "#4D4DFE",
@@ -19,7 +21,7 @@ module.exports = {
       yellow: colors.yellow,
       green: colors.emerald,
       purple: colors.violet,
-      pink: colors.fuchsia,
+      gray: colors.gray,
       red: colors.red,
     },
     fontFamily: {
@@ -31,9 +33,9 @@ module.exports = {
     },
     extend: {
       gridTemplateRows: {
-        "auto-1fr": "auto 1fr",
+        "auto-fr": "auto 1fr",
       },
     },
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
 };
