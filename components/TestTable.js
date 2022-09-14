@@ -3,6 +3,7 @@ import { useTable } from "react-table";
 import { Table } from "flowbite-react";
 import PencilIconcomponent from "../components/PencilIcon";
 import ModalAdd from "../components/ModalAdd";
+import Link from "next/link";
 
 export const TestTable = () => {
   return (
@@ -20,7 +21,8 @@ export const TestTable = () => {
 const Title = () => {
   return (
     <h1 className="text-white font-bold text-3xl ml-60 ">
-      Pet Clinic Dashboard
+      <Link href="/">Pet Clinic Dashboard</Link>|
+      <Link href="/test">Go to test</Link>
     </h1>
   );
 };
@@ -101,21 +103,19 @@ const TableList = () => {
     <>
       <ModalAdd />
       <Table hoverable={true} {...getTableProps()} className="bg-gray-200 ">
-        <Table.Head className="bg-red-200 min-w-full">
-          {headerGroups.map((headerGroup) => (
-            <Table.HeadCell
-              className="inline-flex w-full justify-between"
-              key={headerGroup.id}
-              {...headerGroup.getHeaderGroupProps()}
-            >
-              {headerGroup.headers.map((column) => (
-                <Table.Cell key={column.id} {...column.getHeaderProps()}>
-                  {column.render("Header")}
-                </Table.Cell>
-              ))}
-            </Table.HeadCell>
-          ))}
-        </Table.Head>
+        {headerGroups.map((headerGroup) => (
+          <Table.Head
+            className="bg-red-200 min-w-full"
+            key={headerGroup.id}
+            {...headerGroup.getHeaderGroupProps()}
+          >
+            {headerGroup.headers.map((column) => (
+              <Table.HeadCell key={column.id} {...column.getHeaderProps()}>
+                {column.render("Header")}
+              </Table.HeadCell>
+            ))}
+          </Table.Head>
+        ))}
         <Table.Body className="divide-y" {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row);

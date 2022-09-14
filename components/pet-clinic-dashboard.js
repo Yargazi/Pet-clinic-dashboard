@@ -2,8 +2,13 @@ import React, { useMemo, useState } from "react";
 import { useTable } from "react-table";
 import PencilIconcomponent from "../components/PencilIcon";
 import ModalAdd from "../components/ModalAdd";
+import SearchBar from "./SearchBar";
+import { useAppContext } from "@/context/Context";
+import Link from "next/link";
 
-export const PetClinicDashboard = () => {
+export const PetClinicDashboard = ({ patients }) => {
+  const { modalOpen } = useAppContext();
+
   return (
     // Change whatever you want here. It's just an example of using tailwind
     <>
@@ -11,7 +16,8 @@ export const PetClinicDashboard = () => {
         <Title />
       </div>
       <div className="grid grid-rows-auto-1fr gap-y-4 p-0 md:p-0 max-w-screen-lg mx-auto ">
-        <Table />
+        <SearchBar />
+        <Table patients={patients} />
       </div>
     </>
   );
@@ -20,49 +26,14 @@ export const PetClinicDashboard = () => {
 const Title = () => {
   return (
     <h1 className="text-white font-bold text-3xl ml-60 ">
-      Pet Clinic Dashboard
+      <Link href="/">Pet Clinic Dashboard</Link>|
+      <Link href="/test">Go to test</Link>
     </h1>
   );
 };
 
-const Table = () => {
-  const data = useMemo(
-    () => [
-      {
-        name: "Alice",
-        phone: "0547125822",
-        petName: "falafel",
-        age: "8",
-        petType: "dog",
-        icon: <PencilIconcomponent />,
-      },
-      {
-        name: "Костя",
-        phone: "0547125833",
-        petName: "Блинчик",
-        age: "1",
-        petType: "еда",
-        icon: <PencilIconcomponent />,
-      },
-      {
-        name: "Саша",
-        phone: "0547125844",
-        petName: "Брюс",
-        age: "10",
-        petType: "dog",
-        icon: <PencilIconcomponent />,
-      },
-      {
-        name: "Катя",
-        phone: "0547125811",
-        petName: "Рекс",
-        age: "8",
-        petType: "dog",
-        icon: <PencilIconcomponent />,
-      },
-    ],
-    []
-  );
+const Table = ({ patients }) => {
+  const data = useMemo(() => patients, [patients]);
 
   const columns = useMemo(
     () => [
@@ -164,8 +135,12 @@ const Table = () => {
                           }}
                         >
                           {
+                            cell.column.id === "icon" ? (
+                              <PencilIconcomponent />
+                            ) : (
+                              cell.render("Cell")
+                            )
                             // Render the cell contents
-                            cell.render("Cell")
                           }
                         </td>
                       );

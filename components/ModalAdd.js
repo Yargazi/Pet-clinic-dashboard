@@ -1,38 +1,25 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import NewElementInTable from "../components/NewElementInTable";
-import Search from "../components/Search";
-import { PlusCircleIcon } from "@heroicons/react/20/solid";
+import { useAppContext } from "@/context/Context";
 
 export default function ModuleAdd() {
-  const [open, setOpen] = useState(false);
+  const { modalOpen, setModalOpen } = useAppContext();
 
   const cancelButtonRef = useRef(null);
 
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
-      <div className="container mg mt-3 h-26 w-26 flex flex-raw justify-start items-center">
-        <Search />
-        <a
-          href="#"
-          alt="Add Button"
-          onClick={() => setOpen(true)}
-          className={
-            " box-border h-14 w-14 hover:box-content hover:text-secondary "
-          }
-        >
-          <PlusCircleIcon />
-        </a>
-        <p className="text-xl font-medium text-gray-900 ml-3">
-          Add new element
-        </p>
-      </div>
-      <Transition.Root show={open} as={Fragment}>
+      <Transition.Root show={modalOpen} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-90"
           initialFocus={cancelButtonRef}
-          onClose={setOpen}
+          onClose={handleClose}
         >
           <Transition.Child
             as={Fragment}
@@ -76,7 +63,7 @@ export default function ModuleAdd() {
                     <button
                       type="button"
                       className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => setOpen(false)}
+                      onClick={handleClose}
                       ref={cancelButtonRef}
                     >
                       Cancel
@@ -84,7 +71,7 @@ export default function ModuleAdd() {
                     <button
                       type="button"
                       className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => setOpen(false)}
+                      onClick={handleClose}
                     >
                       Add
                     </button>
@@ -98,4 +85,3 @@ export default function ModuleAdd() {
     </>
   );
 }
-module.exports = ModuleAdd;

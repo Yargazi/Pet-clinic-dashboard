@@ -62,4 +62,3 @@ export default function Dropdown() {
     </Menu>
   );
 }
-module.exports = Dropdown;
