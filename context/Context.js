@@ -17,7 +17,9 @@ export function AppWrapper({ children }) {
 
   const createAnAppointment = async (patientsInfo) => {
     const response = await axios.post(`${BASE_URL}/api/patients`, patientsInfo);
-
+    setModalOpen(false);
+    setPatientsInfo("");
+    setPetType("");
     return response.data;
   };
 
@@ -27,7 +29,8 @@ export function AppWrapper({ children }) {
       `${BASE_URL}/api/patients/${_id}`,
       patientsInfo
     );
-
+    setPatientsInfo("");
+    setPetType("");
     return response.data;
   };
 

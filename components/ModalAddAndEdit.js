@@ -25,9 +25,10 @@ export default function ModalAddAndEdit() {
     modalOpen,
     setModalOpen,
     selectedAction,
-
+    setPatientsInfo,
     patientsInfo,
     petType,
+    setPetType,
     createAnAppointment,
     delAnAppointment,
     selectedId,
@@ -46,6 +47,7 @@ export default function ModalAddAndEdit() {
 
   const handleClose = () => {
     setModalOpen(false);
+    setPatientsInfo("");
   };
 
   const handleTitle = () => {
@@ -66,7 +68,15 @@ export default function ModalAddAndEdit() {
 
   const handleEdit = async (e) => {
     e.preventDefault();
-    patientsInfo.petType = petType ?? "Null";
+    console.log(patientsInfo.petType);
+    console.log(petType);
+    console.log(patientsInfo);
+
+    if (patientsInfo.petType === undefined) {
+      patientsInfo.petType = petType;
+    } else {
+      patientsInfo.petType = petType;
+    }
 
     await editAnAppointment(patientsInfo);
     alert("You successfully edited an appointment");
@@ -76,7 +86,7 @@ export default function ModalAddAndEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    patientsInfo.petType = petType ?? "Null";
+    patientsInfo.petType = petType;
 
     await createAnAppointment(patientsInfo);
     alert("You successfully created new appointment");
