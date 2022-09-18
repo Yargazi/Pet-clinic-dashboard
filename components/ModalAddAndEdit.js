@@ -67,7 +67,7 @@ export default function ModalAddAndEdit() {
   const handleEdit = async (e) => {
     e.preventDefault();
     patientsInfo.petType = petType ?? "Null";
-    // console.log(patientsInfo);
+
     await editAnAppointment(patientsInfo);
     alert("You successfully edited an appointment");
     setModalOpen(false);
@@ -77,7 +77,7 @@ export default function ModalAddAndEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     patientsInfo.petType = petType ?? "Null";
-    console.log(patientsInfo);
+
     await createAnAppointment(patientsInfo);
     alert("You successfully created new appointment");
     setModalOpen(false);

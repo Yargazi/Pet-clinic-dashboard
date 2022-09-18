@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useTable } from "react-table";
 import PencilIconcomponent from "../components/PencilIcon";
 import ModalAddAndEdit from "./ModalAddAndEdit";
 import SearchBar from "./SearchBar";
+import { useAppContext } from "@/context/Context";
 
 import Link from "next/link";
 
@@ -13,7 +14,7 @@ export const PetClinicDashboard = ({ users }) => {
         <Title />
       </div>
       <div className="grid grid-rows-auto-1fr gap-y-4 p-0 md:p-0 max-w-screen-lg mx-auto ">
-        <SearchBar />
+        <SearchBar users={users} />
         <Table users={users} />
       </div>
     </>
@@ -30,7 +31,14 @@ const Title = () => {
 };
 
 const Table = ({ users }) => {
-  const data = useMemo(() => users, [users]);
+  const { searchedUser } = useAppContext();
+  let data;
+  if (searchedUser.length > 0) {
+    data = searchedUser;
+    data = useMemo(() => searchedUser, [searchedUser]);
+  } else {
+    data = useMemo(() => users, [users]);
+  }
 
   const columns = useMemo(
     () => [
@@ -119,7 +127,7 @@ const Table = ({ users }) => {
               // Prepare the row for display
               prepareRow(row);
               row.id = row.original._id;
-              // console.log(row);
+
               return (
                 // Apply the row props
                 <tr key={row.id} {...row.getRowProps()}>

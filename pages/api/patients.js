@@ -45,10 +45,9 @@ export const edit = async (req, res) => {
 export const del = async (req, res) => {
   try {
     const userId = req.query._id;
-    console.log(userId);
+
     const deletedUser = await Users.findByIdAndDelete(userId);
-    // res.status(200).send(userId);
-    console.log(deletedUser);
+
     if (deletedUser) {
       res.status(200).send({
         ok: true,

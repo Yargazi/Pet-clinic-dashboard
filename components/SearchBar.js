@@ -4,8 +4,8 @@ import { PlusCircleIcon } from "@heroicons/react/20/solid";
 
 import { useAppContext } from "@/context/Context";
 
-export default function SearchBar() {
-  const { setModalOpen, setSelectedAction } = useAppContext();
+export default function SearchBar({ users }) {
+  const { setModalOpen, setSelectedAction, setSearchedUser } = useAppContext();
   const [selectedTypeOfSearch, setSelectedTypeOfSearch] =
     useState("Search type");
 
@@ -14,6 +14,21 @@ export default function SearchBar() {
     setSelectedAction("Add");
   };
 
+  const handleSearch = (e, value, users) => {
+    e.preventDefault();
+
+    if (selectedTypeOfSearch === "By pet name") {
+      const userArr = users.filter((user) =>
+        user.petName.toLowerCase().includes(value.toLowerCase())
+      );
+      setSearchedUser(userArr);
+    } else {
+      const userArr = users.filter((user) =>
+        user.userName.toLowerCase().includes(value.toLowerCase())
+      );
+      setSearchedUser(userArr);
+    }
+  };
   return (
     <div className="flex flex-row items-center gap-2 pt-6 pb-2 ">
       <div className="flex-none ">
@@ -29,7 +44,13 @@ export default function SearchBar() {
         </Dropdown>
       </div>
       <div className="grow ">
-        <TextInput id="search" type="text" placeholder="Search" className="" />
+        <TextInput
+          id="search"
+          type="text"
+          placeholder="Search"
+          className=""
+          onChange={(e) => handleSearch(e, e.target.value, users)}
+        />
       </div>
       <div className="flex-none">
         <a

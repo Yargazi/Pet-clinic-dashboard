@@ -13,6 +13,7 @@ export function AppWrapper({ children }) {
   const [petType, setPetType] = useState(null);
   const [patientsInfo, setPatientsInfo] = useState({});
   const [selectedId, setSelectedId] = useState("");
+  const [searchedUser, setSearchedUser] = useState([]);
 
   const createAnAppointment = async (patientsInfo) => {
     const response = await axios.post(`${BASE_URL}/api/patients`, patientsInfo);
@@ -44,8 +45,9 @@ export function AppWrapper({ children }) {
         selectedAction,
         petType,
         patientsInfo,
-
+        searchedUser,
         selectedId,
+        setSearchedUser,
         setModalOpen,
         setSelectedAction,
         setPetType,

@@ -11,7 +11,11 @@ const Home = () => {
     return <Loader />;
   }
 
-  return <PetClinicDashboard users={data ? data.users : []} />;
+  return (
+    <>
+      <PetClinicDashboard users={data ? data.users : []} />
+    </>
+  );
 };
 
 export default Home;
