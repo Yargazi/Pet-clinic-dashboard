@@ -7,7 +7,9 @@
       "@/components/*": ["components/*"],
       "@/lib/*": ["lib/*"],
       "@/styles/*": ["styles/*"],
-      "@/context/*": ["context/*"]
+      "@/context/*": ["context/*"],
+      "@/models/*": ["models/*"],
+      "@/pages/*": ["pages/*"],
     },
     "allowJs": true,
     "skipLibCheck": true,
@@ -22,6 +24,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/pet-clinic-dashboard.js", "pages/index.js", "pages/_app.js", "pages/api/patients.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/pet-clinic-dashboard.js", "pages/index.js", "pages/_app.js", "pages/api/patients.js", "lib/interfaces.js", "lib/db.js"],
   "exclude": ["node_modules"]
 }

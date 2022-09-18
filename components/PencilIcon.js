@@ -1,16 +1,20 @@
 import React, { useContext } from "react";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
-// import { AppContext } from "../context/Context";
+import { useAppContext } from "@/context/Context";
 
-export const PencilIconcomponent = () => {
-  // const { setOpen } = useContext(AppContext);
+export const PencilIconcomponent = ({ value }) => {
+  const { modalOpen, setModalOpen, setSelectedAction, setSelectedId } =
+    useAppContext();
+  const handleAction = () => {
+    setModalOpen(true);
+    setSelectedAction("Edit");
+    setSelectedId(value);
+  };
   return (
-    <a
-      href="#"
-      alt="git"
-      // onClick={() => setOpen(true)}
-    >
-      <PencilSquareIcon className={"text-rose-300 hover:text-secondary"} />
+    <a href="#" alt="git" onClick={handleAction}>
+      <PencilSquareIcon
+        className={"w-xs max-w-xs text-rose-300 hover:text-secondary"}
+      />
     </a>
   );
 };

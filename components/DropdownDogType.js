@@ -2,19 +2,17 @@
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { useAppContext } from "@/context/Context";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Dropdown() {
+  const { v4: uuidv4 } = require("uuid");
   const typesOfPets = ["Dog", "Cat", "fish", "Parrot", "fox"];
+  const { petType, setPetType } = useAppContext();
 
-  const [petType, setPetType] = useState(null);
-
-  const handlePetTypeChange = (event) => {
-    // setPetType(event.target.value);
-  };
   return (
     <Menu as="div" className="relative flex-1 ">
       <div>
@@ -35,8 +33,8 @@ export default function Dropdown() {
       >
         <Menu.Items className=" right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           {typesOfPets?.map((pet) => (
-            <div className="py-1">
-              <Menu.Item key={pet}>
+            <div className="py-1" key={uuidv4()}>
+              <Menu.Item>
                 {({ active }) => (
                   <a
                     href="#"

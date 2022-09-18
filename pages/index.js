@@ -1,8 +1,8 @@
 import { PetClinicDashboard } from "@/components/pet-clinic-dashboard";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Loader } from "@/components/Loader";
 
-const Home = ({ patients }) => {
+const Home = () => {
   const { isLoading, error, data } = useQuery(["patientsRepo"], () =>
     fetch(`/api/patients`).then((res) => res.json())
   );
@@ -11,7 +11,7 @@ const Home = ({ patients }) => {
     return <Loader />;
   }
 
-  return <PetClinicDashboard patients={data ? data.patients : []} />;
+  return <PetClinicDashboard users={data ? data.users : []} />;
 };
 
 export default Home;

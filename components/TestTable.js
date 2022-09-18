@@ -2,7 +2,8 @@ import React, { useMemo } from "react";
 import { useTable } from "react-table";
 import { Table } from "flowbite-react";
 import PencilIconcomponent from "../components/PencilIcon";
-import ModalAdd from "../components/ModalAdd";
+import ModalAddAndEdit from "../components/ModalAddAndEdit";
+import SearchBar from "./SearchBar";
 import Link from "next/link";
 
 export const TestTable = () => {
@@ -12,6 +13,7 @@ export const TestTable = () => {
         <Title />
       </div>
       <div className="grid gap-y-4 max-w-screen-lg mx-auto ">
+        <SearchBar />
         <TableList />
       </div>
     </>
@@ -21,8 +23,7 @@ export const TestTable = () => {
 const Title = () => {
   return (
     <h1 className="text-white font-bold text-3xl ml-60 ">
-      <Link href="/">Pet Clinic Dashboard</Link>|
-      <Link href="/test">Go to test</Link>
+      <Link href="/">Pet Clinic Dashboard</Link>
     </h1>
   );
 };
@@ -35,7 +36,6 @@ const TableList = () => {
         petName: "falafel",
         age: "8",
         petType: "dog",
-        icon: <PencilIconcomponent />,
       },
       {
         name: "Костя",
@@ -43,7 +43,6 @@ const TableList = () => {
         petName: "Блинчик",
         age: "1",
         petType: "еда",
-        icon: <PencilIconcomponent />,
       },
       {
         name: "Саша",
@@ -51,7 +50,6 @@ const TableList = () => {
         petName: "Брюс",
         age: "10",
         petType: "dog",
-        icon: <PencilIconcomponent />,
       },
       {
         name: "Катя",
@@ -59,7 +57,6 @@ const TableList = () => {
         petName: "Рекс",
         age: "8",
         petType: "dog",
-        icon: <PencilIconcomponent />,
       },
     ],
     []
@@ -101,11 +98,11 @@ const TableList = () => {
 
   return (
     <>
-      <ModalAdd />
-      <Table hoverable={true} {...getTableProps()} className="bg-gray-200 ">
+      <ModalAddAndEdit />
+      <Table hoverable={true} {...getTableProps()} className=" ">
         {headerGroups.map((headerGroup) => (
           <Table.Head
-            className="bg-red-200 min-w-full"
+            className="bg-blue-900 text-gray-50 min-w-full"
             key={headerGroup.id}
             {...headerGroup.getHeaderGroupProps()}
           >
@@ -123,7 +120,7 @@ const TableList = () => {
               <Table.Row
                 key={row.id}
                 {...row.getRowProps()}
-                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                className="bg-blue-100 dark:border-gray-700 dark:bg-gray-800"
               >
                 {row.cells.map((cell) => {
                   return (
@@ -132,7 +129,11 @@ const TableList = () => {
                       {...cell.getCellProps()}
                       className="whitespace-nowrap font-medium text-gray-900 dark:text-white"
                     >
-                      {cell.render("Cell")}
+                      {cell.column.id === "icon" ? (
+                        <PencilIconcomponent />
+                      ) : (
+                        cell.render("Cell")
+                      )}
                     </Table.Cell>
                   );
                 })}

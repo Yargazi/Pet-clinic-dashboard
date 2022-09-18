@@ -1,23 +1,20 @@
 import React, { useMemo, useState } from "react";
 import { useTable } from "react-table";
 import PencilIconcomponent from "../components/PencilIcon";
-import ModalAdd from "../components/ModalAdd";
+import ModalAddAndEdit from "./ModalAddAndEdit";
 import SearchBar from "./SearchBar";
-import { useAppContext } from "@/context/Context";
+
 import Link from "next/link";
 
-export const PetClinicDashboard = ({ patients }) => {
-  const { modalOpen } = useAppContext();
-
+export const PetClinicDashboard = ({ users }) => {
   return (
-    // Change whatever you want here. It's just an example of using tailwind
     <>
       <div className="bg-gray-800 min-w-xl p-4">
         <Title />
       </div>
       <div className="grid grid-rows-auto-1fr gap-y-4 p-0 md:p-0 max-w-screen-lg mx-auto ">
         <SearchBar />
-        <Table patients={patients} />
+        <Table users={users} />
       </div>
     </>
   );
@@ -25,21 +22,21 @@ export const PetClinicDashboard = ({ patients }) => {
 
 const Title = () => {
   return (
-    <h1 className="text-white font-bold text-3xl ml-60 ">
+    <h1 className="flex text-white gap-2 font-bold text-3xl ml-60 ">
       <Link href="/">Pet Clinic Dashboard</Link>|
-      <Link href="/test">Go to test</Link>
+      <Link href="/test">Another variant</Link>
     </h1>
   );
 };
 
-const Table = ({ patients }) => {
-  const data = useMemo(() => patients, [patients]);
+const Table = ({ users }) => {
+  const data = useMemo(() => users, [users]);
 
   const columns = useMemo(
     () => [
       {
         Header: "Name",
-        accessor: "name", // accessor is the "key" in the data
+        accessor: "userName", // accessor is the "key" in the data
       },
       {
         Header: "Phone",
@@ -51,14 +48,18 @@ const Table = ({ patients }) => {
       },
       {
         Header: "Pet age",
-        accessor: "age",
+        accessor: "petAge",
+      },
+      {
+        Header: "Pet Birth Date",
+        accessor: "petBirthDate",
       },
       {
         Header: "Pet type",
         accessor: "petType",
       },
       {
-        header: "",
+        header: "Edit",
         accessor: "icon",
       },
     ],
@@ -71,7 +72,7 @@ const Table = ({ patients }) => {
 
   return (
     <>
-      <ModalAdd />
+      <ModalAddAndEdit />
       <table
         {...getTableProps()}
         style={{
@@ -117,6 +118,8 @@ const Table = ({ patients }) => {
             rows.map((row) => {
               // Prepare the row for display
               prepareRow(row);
+              row.id = row.original._id;
+              // console.log(row);
               return (
                 // Apply the row props
                 <tr key={row.id} {...row.getRowProps()}>
@@ -128,7 +131,7 @@ const Table = ({ patients }) => {
                         <td
                           key={cell.id}
                           {...cell.getCellProps()}
-                          className={"p-2 text-center "}
+                          className={"p-2 text-center  whitespace-normal"}
                           style={{
                             border: "solid 2px white",
                             background: "#c7e2fc",
@@ -136,7 +139,7 @@ const Table = ({ patients }) => {
                         >
                           {
                             cell.column.id === "icon" ? (
-                              <PencilIconcomponent />
+                              <PencilIconcomponent value={row.id} />
                             ) : (
                               cell.render("Cell")
                             )

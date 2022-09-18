@@ -1,3 +1,6 @@
+import "@/lib/db";
+import Users from "@/models/Appointments";
+
 export default async function handler(req, res) {
   if (req.method === "POST") {
     return await create(req, res);
@@ -8,53 +11,53 @@ export default async function handler(req, res) {
   if (req.method === "DELETE") {
     return await del(req, res);
   }
+  if (req.method === "PUT") {
+    return await edit(req, res);
+  }
 }
 
-const create = async (req, res) => {
-  // insert to database
-  const patient = { name: "Alice" };
-  const patients = [patient];
-  res.status(200).json({ patients });
-};
-export const read = async (req, res) => {
-  // load from database
-  const patients = [
-    {
-      name: "Alice",
-      phone: "0547125822",
-      petName: "falafel",
-      age: "8",
-      petType: "dog",
-      // icon: <PencilIconcomponent />,
-    },
-    {
-      name: "Костя",
-      phone: "0547125833",
-      petName: "Блинчик",
-      age: "1",
-      petType: "еда",
-      // icon: <PencilIconcomponent />,
-    },
-    {
-      name: "Саша",
-      phone: "0547125844",
-      petName: "Брюс",
-      age: "10",
-      petType: "dog",
-      // icon: <PencilIconcomponent />,
-    },
-    {
-      name: "Катя",
-      phone: "0547125811",
-      petName: "Рекс",
-      age: "8",
-      petType: "dog",
-      // icon: <PencilIconcomponent />,
-    },
-  ];
-  res.status(200).json({ patients });
+export const create = async (req, res) => {
+  const newUser = await Users.create({ ...req.body });
+  res.status(200).send(newUser);
 };
 
-const del = async (req, res) => {
-  // delete from database
+export const read = async (req, res) => {
+  const users = await Users.find();
+  res.status(200).send({ users });
+};
+
+export const edit = async (req, res) => {
+  const { userId } = req.params;
+  const data = req.body;
+  const updatedUser = await Users.findByIdAndUpdate(userId, data);
+  res.status(200).send({ updatedUser });
+  if (!updatedUser) {
+    res.status(404).send({ message: " User not found" });
+  } else {
+    res.status(404).send({ message: "Error while updating user" });
+  }
+};
+
+export const del = async (req, res) => {
+  try {
+    const userId = req.query._id;
+    console.log(userId);
+    const deletedUser = await Users.findByIdAndDelete(userId);
+    // res.status(200).send(userId);
+    console.log(deletedUser);
+    if (deletedUser) {
+      res.status(200).send({
+        ok: true,
+        deletedUser: deletedUser._id,
+        message: "User Deleted",
+      });
+      return;
+    } else {
+      const err = new Error("User already deleted");
+      err.statusCode = 500;
+      throw err;
+    }
+  } catch (err) {
+    res.status(err.statusCode || 500).send(err.message);
+  }
 };
