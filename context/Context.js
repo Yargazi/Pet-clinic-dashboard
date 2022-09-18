@@ -20,7 +20,17 @@ export function AppWrapper({ children }) {
     return response.data;
   };
 
-  const delUser = async (_id) => {
+  const editAnAppointment = async (patientsInfo) => {
+    const _id = selectedId;
+    const response = await axios.put(
+      `${BASE_URL}/api/patients/${_id}`,
+      patientsInfo
+    );
+
+    return response.data;
+  };
+
+  const delAnAppointment = async (_id) => {
     const response = await axios.delete(`${BASE_URL}/api/patients/${_id}`);
     alert(response.data.message);
     setModalOpen(false);
@@ -41,8 +51,9 @@ export function AppWrapper({ children }) {
         setPetType,
         setPatientsInfo,
         createAnAppointment,
-        delUser,
+        delAnAppointment,
         setSelectedId,
+        editAnAppointment,
       }}
     >
       {children}

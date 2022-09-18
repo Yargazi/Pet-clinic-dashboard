@@ -25,23 +25,25 @@ export default function ModalAddAndEdit() {
     modalOpen,
     setModalOpen,
     selectedAction,
-    setSelectedAction,
+
     patientsInfo,
     petType,
     createAnAppointment,
-    delUser,
+    delAnAppointment,
     selectedId,
+    editAnAppointment,
   } = useAppContext();
 
   const cancelButtonRef = useRef(null);
   const handleDelete = () => {
     let answer = window.confirm("Delete this appointment?");
     if (answer) {
-      delUser(selectedId);
+      delAnAppointment(selectedId);
     } else {
       return;
     }
   };
+
   const handleClose = () => {
     setModalOpen(false);
   };
@@ -62,12 +64,22 @@ export default function ModalAddAndEdit() {
     }
   };
 
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    patientsInfo.petType = petType ?? "Null";
+    // console.log(patientsInfo);
+    await editAnAppointment(patientsInfo);
+    alert("You successfully edited an appointment");
+    setModalOpen(false);
+    Router.push("/");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     patientsInfo.petType = petType ?? "Null";
     console.log(patientsInfo);
     await createAnAppointment(patientsInfo);
-    alert("You have successfully created new appointment  ");
+    alert("You successfully created new appointment");
     setModalOpen(false);
     Router.push("/");
   };
@@ -138,7 +150,7 @@ export default function ModalAddAndEdit() {
                       <button
                         type="button"
                         className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                        onClick={handleClose}
+                        onClick={handleEdit}
                       >
                         Edit
                       </button>

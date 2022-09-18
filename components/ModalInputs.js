@@ -9,7 +9,6 @@ const ModalInputs = () => {
       ...patientsInfo,
       [e.target.name]: e.target.value,
     });
-    console.log(patientsInfo);
   };
 
   return (

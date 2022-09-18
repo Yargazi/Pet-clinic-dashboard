@@ -27,10 +27,14 @@ export const read = async (req, res) => {
 };
 
 export const edit = async (req, res) => {
-  const { userId } = req.params;
+  const userId = req.query._id;
+
   const data = req.body;
-  const updatedUser = await Users.findByIdAndUpdate(userId, data);
-  res.status(200).send({ updatedUser });
+  const updatedUser = await Users.findByIdAndUpdate(userId, data, {
+    returnOriginal: false,
+  });
+
+  res.status(200).send({ updatedUser, message: "User updated" });
   if (!updatedUser) {
     res.status(404).send({ message: " User not found" });
   } else {
