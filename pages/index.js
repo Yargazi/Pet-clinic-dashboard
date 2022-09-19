@@ -7,13 +7,18 @@ const Home = () => {
     fetch(`/api/patients`).then((res) => res.json())
   );
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   return (
     <>
-      <PetClinicDashboard users={data ? data.users : []} />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <PetClinicDashboard users={data ? data.users : []} />
+      )}
+      ;
     </>
   );
 };

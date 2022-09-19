@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { useTable } from "react-table";
+import React, { useEffect, useMemo, useState } from "react";
+import { useTable, useSortBy } from "react-table";
 import PencilIconcomponent from "../components/PencilIcon";
 import ModalAddAndEdit from "./ModalAddAndEdit";
 import SearchBar from "./SearchBar";
@@ -29,19 +29,31 @@ const Title = () => {
     </h1>
   );
 };
+//separate file
 
 const Table = ({ users }) => {
   const { searchedUser } = useAppContext();
-  let data;
+  // const [sortedData, setSortedData] = useState([]);
+  let data = null;
 
-  const onSort = (key) => {};
+  // const handleSort = (key) => {
+  //   console.log(
+  //     "🚀 ~ file: pet-clinic-dashboard.js ~ line 41 ~ handleSort ~ data",
+  //     data
+  //   );
+  //   const sort = data.sort((a, b) => {
+  //     return a[key].localeCompare(b[key]);
+  //   });
+  //   setSortedData(sort);
+  //   data = sortedData;
+  // };
 
-  if (searchedUser.length > 0) {
+  if (searchedUser && searchedUser.length > 0) {
     data = searchedUser;
     data = useMemo(() => searchedUser, [searchedUser]);
   } else {
     data = useMemo(() => users, [users]);
-    console.log("data", data);
+    // console.log("data", data);
   }
 
   const columns = useMemo(
@@ -78,13 +90,11 @@ const Table = ({ users }) => {
     []
   );
 
-  const tableInstance = useTable({ columns, data });
+  const tableInstance = useTable({ columns, data }, useSortBy);
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
-  const n = data.sort((a, b) => a.userName.localeCompare(b.userName));
-
-  console.log("n", n);
   return (
     <>
       <ModalAddAndEdit />
@@ -108,14 +118,13 @@ const Table = ({ users }) => {
                     // Apply the header cell props
                     <th
                       key={column.id}
-                      {...column.getHeaderProps()}
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
                       style={{
                         background: "#1F2937",
                         color: "white",
                         fontWeight: "bold",
                       }}
                     >
-                      {console.log(column)}
                       {
                         // Render the header
                         // column.id === "petType" ? (
@@ -127,12 +136,7 @@ const Table = ({ users }) => {
                         column.id === "userName" || column.id === "petName" ? (
                           <div className="inline-flex gap-2">
                             {column.Header}
-                            <ChevronUpDownIcon
-                              className="w-5"
-                              onClick={(e) => {
-                                console.log(e);
-                              }}
-                            />
+                            <ChevronUpDownIcon className="w-5" />
                           </div>
                         ) : (
                           column.render("Header")
