@@ -4,7 +4,7 @@ import PencilIconcomponent from "../components/PencilIcon";
 import ModalAddAndEdit from "./ModalAddAndEdit";
 import SearchBar from "./SearchBar";
 import { useAppContext } from "@/context/Context";
-
+import { ChevronUpDownIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 
 export const PetClinicDashboard = ({ users }) => {
@@ -33,11 +33,15 @@ const Title = () => {
 const Table = ({ users }) => {
   const { searchedUser } = useAppContext();
   let data;
+
+  const onSort = (key) => {};
+
   if (searchedUser.length > 0) {
     data = searchedUser;
     data = useMemo(() => searchedUser, [searchedUser]);
   } else {
     data = useMemo(() => users, [users]);
+    console.log("data", data);
   }
 
   const columns = useMemo(
@@ -78,6 +82,9 @@ const Table = ({ users }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
+  const n = data.sort((a, b) => a.userName.localeCompare(b.userName));
+
+  console.log("n", n);
   return (
     <>
       <ModalAddAndEdit />
@@ -108,9 +115,28 @@ const Table = ({ users }) => {
                         fontWeight: "bold",
                       }}
                     >
+                      {console.log(column)}
                       {
                         // Render the header
-                        column.render("Header")
+                        // column.id === "petType" ? (
+                        //   <div className="inline-flex gap-2">
+                        //   {column.Header}
+                        //   <ChevronDownIcon  className="w-5" />
+                        //   </div>) &&
+
+                        column.id === "userName" || column.id === "petName" ? (
+                          <div className="inline-flex gap-2">
+                            {column.Header}
+                            <ChevronUpDownIcon
+                              className="w-5"
+                              onClick={(e) => {
+                                console.log(e);
+                              }}
+                            />
+                          </div>
+                        ) : (
+                          column.render("Header")
+                        )
                       }
                     </th>
                   ))
