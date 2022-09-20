@@ -1,5 +1,5 @@
 import React from "react";
-import Dropdown from "./DropDownDogType";
+import Dropdown from "@/components/DropDownDogType";
 import { useAppContext } from "@/context/Context";
 const ModalInputs = () => {
   const { patientsInfo, setPatientsInfo } = useAppContext();
