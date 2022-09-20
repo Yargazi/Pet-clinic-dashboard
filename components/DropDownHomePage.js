@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Dropdown } from "flowbite-react";
 
-// import { useAppContext } from "@/context/Context";
-
 import {
   Checkbox,
   Box,
@@ -11,24 +9,11 @@ import {
   FormControlLabel,
 } from "@mui/material";
 export default function DropdownHome() {
-  //   const [petsArr, setPetsArr] = React.useState([]);
   const [state, setState] = React.useState({});
-  //   const { } = useAppContext();
+
   const { v4: uuidv4 } = require("uuid");
 
-  const handleselect = (event) => {
-    // let value = "";
-    // if (event.target.checked === true) {
-    //   const userArr = listOfUsers.filter((user) =>
-    //     user.petType.toLowerCase().includes(value.toLowerCase())
-    //   );
-    //   setSearchedUser(userArr);
-    // }
-    // console.log(
-    //   "🚀 ~ file: DropDownHomePage.js ~ line 23 ~ handleselect ~ petsArr",
-    //   petsArr
-    // );
-  };
+  const handleselect = (event) => {};
 
   const handleChange = (event) => {
     setState({
@@ -51,7 +36,6 @@ export default function DropdownHome() {
                   key={uuidv4()}
                   control={
                     <Checkbox
-                      //   onClick={""}
                       value={state[pet] || ""}
                       checked={state[pet]}
                       onChange={handleChange}
