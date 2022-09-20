@@ -1,6 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { Loader } from "@/components/Loader";
 
 import axios from "axios";
 
@@ -50,6 +48,7 @@ export function AppWrapper({ children }) {
         patientsInfo,
         searchedUser,
         selectedId,
+
         setSearchedUser,
         setModalOpen,
         setSelectedAction,

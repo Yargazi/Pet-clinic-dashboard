@@ -1,10 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useTable, useSortBy } from "react-table";
 import PencilIconcomponent from "../components/PencilIcon";
+import DropdownHome from "@/components/DropDownHomePage";
 import ModalAddAndEdit from "./ModalAddAndEdit";
 import SearchBar from "./SearchBar";
 import { useAppContext } from "@/context/Context";
-import { ChevronUpDownIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
+import {
+  ChevronUpDownIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from "@heroicons/react/20/solid";
 import Link from "next/link";
 
 export const PetClinicDashboard = ({ users }) => {
@@ -24,43 +29,26 @@ export const PetClinicDashboard = ({ users }) => {
 const Title = () => {
   return (
     <h1 className="flex text-white gap-2 font-bold text-3xl ml-60 ">
-      <Link href="/">Pet Clinic Dashboard</Link>|
-      <Link href="/test">Another variant</Link>
+      <Link href="/">Pet Clinic Dashboard</Link>
     </h1>
   );
 };
-//separate file
 
 const Table = ({ users }) => {
   const { searchedUser } = useAppContext();
-  // const [sortedData, setSortedData] = useState([]);
   let data = null;
-
-  // const handleSort = (key) => {
-  //   console.log(
-  //     "🚀 ~ file: pet-clinic-dashboard.js ~ line 41 ~ handleSort ~ data",
-  //     data
-  //   );
-  //   const sort = data.sort((a, b) => {
-  //     return a[key].localeCompare(b[key]);
-  //   });
-  //   setSortedData(sort);
-  //   data = sortedData;
-  // };
-
   if (searchedUser && searchedUser.length > 0) {
     data = searchedUser;
     data = useMemo(() => searchedUser, [searchedUser]);
   } else {
     data = useMemo(() => users, [users]);
-    // console.log("data", data);
   }
 
   const columns = useMemo(
     () => [
       {
         Header: "Name",
-        accessor: "userName", // accessor is the "key" in the data
+        accessor: "userName",
       },
       {
         Header: "Phone",
@@ -107,90 +95,83 @@ const Table = ({ users }) => {
         }}
       >
         <thead>
-          {
-            // Loop over the header rows
-            headerGroups.map((headerGroup) => (
-              // Apply the header row props
-              <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
-                {
-                  // Loop over the headers in each row
-                  headerGroup.headers.map((column) => (
-                    // Apply the header cell props
-                    <th
-                      key={column.id}
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
+          {headerGroups.map((headerGroup) => (
+            <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th
+                  key={column.id}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  style={{
+                    background: "#1F2937",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {column.id === "icon" ? (
+                    <p className="px-1">Edit</p>
+                  ) : column.id === "petType" ? (
+                    <div className="inline-flex gap-2">
+                      {column.Header}
+
+                      <DropdownHome value={data} className="w-5 align-center" />
+                    </div>
+                  ) : column.id === "userName" || column.id === "petName" ? (
+                    column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <div className="inline-flex gap-2">
+                          {column.Header}
+                          <ChevronDownIcon className="w-5" />
+                        </div>
+                      ) : (
+                        <div className="inline-flex gap-2">
+                          {column.Header}
+                          <ChevronUpIcon className="w-5" />
+                        </div>
+                      )
+                    ) : (
+                      <div className="inline-flex gap-2">
+                        {column.Header}
+                        <ChevronUpDownIcon className="w-5" />
+                      </div>
+                    )
+                  ) : (
+                    column.render("Header")
+                  )}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            row.id = row.original._id;
+
+            return (
+              <tr key={row.id} {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td
+                      key={cell.id}
+                      {...cell.getCellProps()}
+                      className={"p-2 text-center  whitespace-normal"}
                       style={{
-                        background: "#1F2937",
-                        color: "white",
-                        fontWeight: "bold",
+                        border: "solid 2px white",
+                        background: "#c7e2fc",
                       }}
                     >
-                      {
-                        // Render the header
-                        // column.id === "petType" ? (
-                        //   <div className="inline-flex gap-2">
-                        //   {column.Header}
-                        //   <ChevronDownIcon  className="w-5" />
-                        //   </div>) &&
-
-                        column.id === "userName" || column.id === "petName" ? (
-                          <div className="inline-flex gap-2">
-                            {column.Header}
-                            <ChevronUpDownIcon className="w-5" />
-                          </div>
-                        ) : (
-                          column.render("Header")
-                        )
-                      }
-                    </th>
-                  ))
-                }
+                      {cell.column.id === "icon" ? (
+                        <PencilIconcomponent value={row.id} />
+                      ) : (
+                        cell.render("Cell")
+                      )}
+                    </td>
+                  );
+                })}
               </tr>
-            ))
-          }
-        </thead>
-        {/* Apply the table body props */}
-        <tbody {...getTableBodyProps()}>
-          {
-            // Loop over the table rows
-            rows.map((row) => {
-              // Prepare the row for display
-              prepareRow(row);
-              row.id = row.original._id;
-
-              return (
-                // Apply the row props
-                <tr key={row.id} {...row.getRowProps()}>
-                  {
-                    // Loop over the rows cells
-                    row.cells.map((cell) => {
-                      // Apply the cell props
-                      return (
-                        <td
-                          key={cell.id}
-                          {...cell.getCellProps()}
-                          className={"p-2 text-center  whitespace-normal"}
-                          style={{
-                            border: "solid 2px white",
-                            background: "#c7e2fc",
-                          }}
-                        >
-                          {
-                            cell.column.id === "icon" ? (
-                              <PencilIconcomponent value={row.id} />
-                            ) : (
-                              cell.render("Cell")
-                            )
-                            // Render the cell contents
-                          }
-                        </td>
-                      );
-                    })
-                  }
-                </tr>
-              );
-            })
-          }
+            );
+          })}
         </tbody>
       </table>
     </>

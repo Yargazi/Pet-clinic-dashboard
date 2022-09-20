@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import Dropdown from "./DropdownDogType";
+import React from "react";
+import Dropdown from "./DropDownDogType";
 import { useAppContext } from "@/context/Context";
 const ModalInputs = () => {
-  const { petType, patientsInfo, setPatientsInfo } = useAppContext();
+  const { patientsInfo, setPatientsInfo } = useAppContext();
 
   const getTargetValue = (e) => {
     setPatientsInfo({

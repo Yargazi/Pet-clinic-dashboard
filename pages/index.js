@@ -7,10 +7,6 @@ const Home = () => {
     fetch(`/api/patients`).then((res) => res.json())
   );
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
-
   return (
     <>
       {isLoading ? (
