@@ -2,7 +2,6 @@ import { createContext, useContext, useState } from "react";
 
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000";
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
@@ -14,7 +13,7 @@ export function AppWrapper({ children }) {
   const [searchedUser, setSearchedUser] = useState([]);
 
   const createAnAppointment = async (patientsInfo) => {
-    const response = await axios.post(`${BASE_URL}/api/patients`, patientsInfo);
+    const response = await axios.post(`/api/patients`, patientsInfo);
     setModalOpen(false);
     setPatientsInfo("");
     setPetType("");
@@ -23,17 +22,14 @@ export function AppWrapper({ children }) {
 
   const editAnAppointment = async (patientsInfo) => {
     const _id = selectedId;
-    const response = await axios.put(
-      `${BASE_URL}/api/patients/${_id}`,
-      patientsInfo
-    );
+    const response = await axios.put(`/api/patients/${_id}`, patientsInfo);
     setPatientsInfo("");
     setPetType("");
     return response.data;
   };
 
   const delAnAppointment = async (_id) => {
-    const response = await axios.delete(`${BASE_URL}/api/patients/${_id}`);
+    const response = await axios.delete(`/api/patients/${_id}`);
     alert(response.data.message);
     setModalOpen(false);
     return response.data;
