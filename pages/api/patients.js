@@ -27,18 +27,21 @@ export const read = async (req, res) => {
 };
 
 export const edit = async (req, res) => {
-  const userId = req.query._id;
+  try {
+    const userId = req.query._id;
 
-  const data = req.body;
-  const updatedUser = await Users.findByIdAndUpdate(userId, data, {
-    returnOriginal: false,
-  });
-  res.status(200).send({ ok: true, updatedUser, message: "User deleted" });
-
-  if (!updatedUser) {
-    res.status(404).send({ message: " User not found" });
-  } else {
-    res.status(404).send({ message: "Error while updating user" });
+    const data = req.body;
+    const updatedUser = await Users.findByIdAndUpdate(userId, data, {
+      returnOriginal: false,
+    });
+    if (!updatedUser) throw "User not found";
+    res.status(200).send({ ok: true, updatedUser, message: "User deleted" });
+  } catch (e) {
+    if (e.message === "User not found") {
+      res.status(404).send({ message: e });
+    } else {
+      res.status(404).send({ message: "Error while updating user" });
+    }
   }
 };
 
