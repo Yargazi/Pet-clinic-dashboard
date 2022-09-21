@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Dropdown, TextInput } from "flowbite-react";
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
 
-import { useAppContext } from "@/context/Context";
+import { useAppContext } from "../context/Context";
 
 export default function SearchBar({ users }) {
   const { setModalOpen, setSelectedAction, setSearchedUser } = useAppContext();

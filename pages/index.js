@@ -1,6 +1,6 @@
-import { PetClinicDashboard } from "@/components/pet-clinic-dashboard";
+import { PetClinicDashboard } from "../components/pet-clinic-dashboard";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Loader } from "@/components/Loader";
+import { Loader } from "../components/Loader";
 
 const Home = () => {
   const { isLoading, error, data } = useQuery(["patientsRepo"], () =>

@@ -1,5 +1,5 @@
-import "@/lib/db";
-import Users from "@/models/Appointments";
+import "../../lib/db";
+import Users from "../../models/Appointments";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {

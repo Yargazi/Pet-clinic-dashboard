@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useTable, useSortBy } from "react-table";
 import PencilIconcomponent from "../components/PencilIcon";
-import DropdownHome from "@/components/DropDownHomePage";
+import DropdownHome from "../components/DropDownHomePage";
 import ModalAddAndEdit from "./ModalAddAndEdit";
 import SearchBar from "./SearchBar";
-import { useAppContext } from "@/context/Context";
+import { useAppContext } from "../context/Context";
 import {
   ChevronUpDownIcon,
   ChevronDownIcon,

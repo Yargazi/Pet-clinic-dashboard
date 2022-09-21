@@ -1,5 +1,5 @@
-import "@/lib/db";
-import { del, edit } from "@/pages/api/patients";
+import "../../../lib/db";
+import { del, edit } from "../../../pages/api/patients";
 
 export default async function handlerReq(req, res) {
   const { method } = req;
