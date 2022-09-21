@@ -51,6 +51,7 @@ const Table = () => {
       {
         Header: "Phone",
         accessor: "phone",
+        disableSortBy: true,
       },
       {
         Header: "Pet name",
@@ -59,18 +60,22 @@ const Table = () => {
       {
         Header: "Pet age",
         accessor: "petAge",
+        disableSortBy: true,
       },
       {
         Header: "Pet Birth Date",
         accessor: "petBirthDate",
+        disableSortBy: true,
       },
       {
         Header: "Pet type",
         accessor: "petType",
+        disableSortBy: true,
       },
       {
         header: "Edit",
         accessor: "icon",
+        disableSortBy: true,
       },
     ],
     []
@@ -111,7 +116,7 @@ const Table = () => {
                     <div className="inline-flex gap-2">
                       {column.Header}
 
-                      <DropdownHome value={data} className="w-5 align-center" />
+                      <DropdownHome className="w-5 align-center" />
                     </div>
                   ) : column.id === "userName" || column.id === "petName" ? (
                     column.isSorted ? (

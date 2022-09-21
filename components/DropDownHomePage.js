@@ -8,50 +8,51 @@ import {
   FormGroup,
   FormControlLabel,
 } from "@mui/material";
+import { useAppContext } from "../context/Context";
+
 export default function DropdownHome() {
+  const { setSearchedUser, patients: users } = useAppContext();
+
   const [state, setState] = React.useState({});
 
   const { v4: uuidv4 } = require("uuid");
 
-  const handleselect = (event) => {};
-
   const handleChange = (event) => {
     setState({
       ...state,
-      [event.target.name]: event.target.checked,
+      [event.target.name.toLowerCase()]: event.target.checked,
     });
   };
 
-  const {} = state;
+  React.useEffect(() => {
+    const userArr = users.filter((user) => state[user.petType.toLowerCase()]);
+    setSearchedUser(userArr);
+  }, [state]);
 
   const typesOfPets = ["Dog", "Cat", "fish", "Parrot", "fox"];
   return (
-    <Dropdown label=" " inline={true} className="">
-      <Dropdown.Item>
-        <Box sx={{ display: "flex" }}>
-          <FormControl component="fieldset" variant="standard">
-            <FormGroup>
-              {typesOfPets?.map((pet) => (
+    <Dropdown label="" inline={true} className="">
+      {typesOfPets?.map((pet) => (
+        <Dropdown.Item key={uuidv4()}>
+          <Box sx={{ display: "flex" }}>
+            <FormControl component="fieldset" variant="standard">
+              <FormGroup>
                 <FormControlLabel
-                  key={uuidv4()}
                   control={
                     <Checkbox
-                      value={state[pet] || ""}
-                      checked={state[pet]}
+                      value={pet}
+                      checked={state[pet.toLowerCase()]}
                       onChange={handleChange}
                       name={pet}
-                      onClick={(event) => {
-                        handleselect(event);
-                      }}
                     />
                   }
                   label={pet}
                 />
-              ))}
-            </FormGroup>
-          </FormControl>
-        </Box>
-      </Dropdown.Item>
+              </FormGroup>
+            </FormControl>
+          </Box>
+        </Dropdown.Item>
+      ))}
     </Dropdown>
   );
 }
