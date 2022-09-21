@@ -23,6 +23,7 @@ export function AppWrapper({ children }) {
   const editAnAppointment = async (patientsInfo) => {
     const _id = selectedId;
     const response = await axios.put(`/api/patients/${_id}`, patientsInfo);
+    setModalOpen(false);
     setPatientsInfo("");
     setPetType("");
     return response.data;
