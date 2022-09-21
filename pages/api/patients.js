@@ -34,7 +34,7 @@ export const edit = async (req, res) => {
     returnOriginal: false,
   });
 
-  res.status(200).send({ updatedUser, message: "User updated" });
+  res.status(200).send({ updatedUser });
   if (!updatedUser) {
     res.status(404).send({ message: " User not found" });
   } else {

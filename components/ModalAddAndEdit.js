@@ -68,9 +68,6 @@ export default function ModalAddAndEdit() {
 
   const handleEdit = async (e) => {
     e.preventDefault();
-    console.log(patientsInfo.petType);
-    console.log(petType);
-    console.log(patientsInfo);
 
     if (patientsInfo.petType === undefined) {
       patientsInfo.petType = petType;
