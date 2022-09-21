@@ -37,12 +37,15 @@ const Title = () => {
 const Table = ({ users }) => {
   const { searchedUser } = useAppContext();
   let data = null;
-  if (searchedUser && searchedUser.length > 0) {
-    data = searchedUser;
-    data = useMemo(() => searchedUser, [searchedUser]);
-  } else {
-    data = useMemo(() => users, [users]);
-  }
+  // if (searchedUser && searchedUser.length > 0) {
+  // data = searchedUser;
+  data = useMemo(
+    () => (searchedUser && searchedUser.length > 0 ? searchedUser : users),
+    [searchedUser, users]
+  );
+  // } else {
+  // data = useMemo(() => users, [users]);
+  // }
 
   const columns = useMemo(
     () => [
