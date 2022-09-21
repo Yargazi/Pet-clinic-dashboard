@@ -1,11 +1,21 @@
+import { useEffect } from "react";
 import { PetClinicDashboard } from "../components/pet-clinic-dashboard";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Loader } from "../components/Loader";
+import { useAppContext } from "../context/Context";
 
 const Home = () => {
-  const { isLoading, error, data } = useQuery(["patientsRepo"], () =>
+  const { setPatients } = useAppContext();
+
+  const { isLoading, data } = useQuery(["patientsRepo"], () =>
     fetch(`/api/patients`).then((res) => res.json())
   );
+
+  useEffect(() => {
+    if (data) {
+      setPatients(data.users);
+    }
+  }, [data]);
 
   return (
     <>
@@ -14,7 +24,6 @@ const Home = () => {
       ) : (
         <PetClinicDashboard users={data ? data.users : []} />
       )}
-      ;
     </>
   );
 };

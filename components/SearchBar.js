@@ -4,8 +4,13 @@ import { PlusCircleIcon } from "@heroicons/react/20/solid";
 
 import { useAppContext } from "../context/Context";
 
-export default function SearchBar({ users }) {
-  const { setModalOpen, setSelectedAction, setSearchedUser } = useAppContext();
+export default function SearchBar() {
+  const {
+    setModalOpen,
+    setSelectedAction,
+    setSearchedUser,
+    patients: users,
+  } = useAppContext();
   const [selectedTypeOfSearch, setSelectedTypeOfSearch] =
     useState("Search type");
 

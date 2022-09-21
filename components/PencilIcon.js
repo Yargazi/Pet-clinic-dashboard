@@ -4,11 +4,11 @@ import { PencilSquareIcon } from "@heroicons/react/20/solid";
 import { useAppContext } from "../context/Context";
 
 export const PencilIconcomponent = ({ value }) => {
-  const { setModalOpen, setSelectedAction, setSelectedId } = useAppContext();
+  const { setModalOpen, setSelectedAction, selectPatient } = useAppContext();
   const handleAction = () => {
     setModalOpen(true);
     setSelectedAction("Edit");
-    setSelectedId(value);
+    selectPatient(value);
   };
   return (
     <a href="#" alt="git" onClick={handleAction}>

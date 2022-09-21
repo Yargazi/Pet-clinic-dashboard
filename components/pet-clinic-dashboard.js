@@ -12,15 +12,15 @@ import {
 } from "@heroicons/react/20/solid";
 import Link from "next/link";
 
-export const PetClinicDashboard = ({ users }) => {
+export const PetClinicDashboard = () => {
   return (
     <>
       <div className="bg-gray-800 min-w-xl p-4">
         <Title />
       </div>
       <div className="grid grid-rows-auto-1fr gap-y-4 p-0 md:p-0 max-w-screen-lg mx-auto ">
-        <SearchBar users={users} />
-        <Table users={users} />
+        <SearchBar />
+        <Table />
       </div>
     </>
   );
@@ -34,18 +34,13 @@ const Title = () => {
   );
 };
 
-const Table = ({ users }) => {
-  const { searchedUser } = useAppContext();
-  let data = null;
-  // if (searchedUser && searchedUser.length > 0) {
-  // data = searchedUser;
-  data = useMemo(
+const Table = () => {
+  const { searchedUser, patients: users } = useAppContext();
+
+  const data = useMemo(
     () => (searchedUser && searchedUser.length > 0 ? searchedUser : users),
     [searchedUser, users]
   );
-  // } else {
-  // data = useMemo(() => users, [users]);
-  // }
 
   const columns = useMemo(
     () => [

@@ -6,11 +6,11 @@ const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AppWrapper>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AppWrapper>
         <Component {...pageProps} />
-      </QueryClientProvider>
-    </AppWrapper>
+      </AppWrapper>
+    </QueryClientProvider>
   );
 }
 
