@@ -58,15 +58,13 @@ export default function SearchBar() {
         />
       </div>
       <div className="flex-none">
-        <a
-          href="#"
-          alt="Add Button"
+        <button
           onClick={handleAction}
           className="flex items-center hover:text-secondary "
         >
           <PlusCircleIcon className="w-10 h-10 flex-none" />
           <span className="whitespace-nowrap">Add new patients</span>
-        </a>
+        </button>
       </div>
     </div>
   );

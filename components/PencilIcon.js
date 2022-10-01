@@ -11,11 +11,11 @@ export const PencilIconcomponent = ({ value }) => {
     selectPatient(value);
   };
   return (
-    <a href="#" alt="git" onClick={handleAction}>
+    <button alt="git" onClick={handleAction} className="btn p-4">
       <PencilSquareIcon
-        className={"w-xs max-w-xs text-rose-300 hover:text-secondary"}
+        className={"w-5 h-5 text-rose-300 hover:text-secondary"}
       />
-    </a>
+    </button>
   );
 };
 export default PencilIconcomponent;

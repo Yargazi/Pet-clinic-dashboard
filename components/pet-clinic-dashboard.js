@@ -14,24 +14,42 @@ import Link from "next/link";
 
 export const PetClinicDashboard = () => {
   return (
-    <>
-      <div className="bg-gray-800 min-w-xl p-4">
+    <div className=" touch-auto">
+      <div className="bg-gray-800 p-4 ">
         <Title />
       </div>
-      <div className="grid grid-rows-auto-1fr gap-y-4 p-0 md:p-0 max-w-screen-lg mx-auto ">
+      <div className="grid grid-rows-auto-1fr gap-y-4 p-0 md:p-0  max-w-screen-lg mx-auto ">
         <SearchBar />
-        <Table />
+        <div className="overflow-x-auto">
+          <Table />
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
 const Title = () => {
   return (
-    <h1 className="flex text-white gap-2 font-bold text-3xl ml-60 ">
+    <h1 className="flex text-white gap-2 font-bold text-3xl ml-10  2xl:ml-60 xl:ml-50 lg:ml-20   ">
       <Link href="/">Pet Clinic Dashboard</Link>
     </h1>
   );
+};
+
+const sortItems = (prev, curr, columnId) => {
+  if (
+    prev.original[columnId].toLowerCase() >
+    curr.original[columnId].toLowerCase()
+  ) {
+    return 1;
+  } else if (
+    prev.original[columnId].toLowerCase() <
+    curr.original[columnId].toLowerCase()
+  ) {
+    return -1;
+  } else {
+    return 0;
+  }
 };
 
 const Table = () => {
@@ -47,6 +65,7 @@ const Table = () => {
       {
         Header: "Name",
         accessor: "userName",
+        sortType: sortItems,
       },
       {
         Header: "Phone",
@@ -56,6 +75,7 @@ const Table = () => {
       {
         Header: "Pet name",
         accessor: "petName",
+        sortType: sortItems,
       },
       {
         Header: "Pet age",
@@ -91,6 +111,7 @@ const Table = () => {
       <ModalAddAndEdit />
       <table
         {...getTableProps()}
+        className="w-full"
         style={{
           borderRight: "solid 3px #020675",
           borderLeft: "solid 3px #020675",
@@ -102,6 +123,7 @@ const Table = () => {
             <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <th
+                  className="px-3 snap-center whitespace-nowrap"
                   key={column.id}
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   style={{

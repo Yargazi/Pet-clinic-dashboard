@@ -43,7 +43,9 @@ export default function ModalAddAndEdit() {
         <div className="flex items-center justify-between mx-2 mb-2">
           <div>Edit item on the list</div>
 
-          <ArchiveBoxXMarkIcon className="w-10" onClick={handleDelete} />
+          <button onClick={handleDelete} type="button">
+            <ArchiveBoxXMarkIcon className="w-10 h-10" />
+          </button>
         </div>
       );
     } else {
