@@ -11,7 +11,12 @@ import {
 import { useAppContext } from "../context/Context";
 
 export default function DropdownHome() {
-  const { setSearchedUser, patients: users } = useAppContext();
+  const {
+    setSearchedUser,
+    patients: users,
+    dropdownToggle,
+    setDropdownToggle,
+  } = useAppContext();
 
   const [state, setState] = React.useState({});
 
@@ -31,7 +36,7 @@ export default function DropdownHome() {
 
   const typesOfPets = ["Dog", "Cat", "fish", "Parrot", "fox"];
   return (
-    <Dropdown label="" inline={true}>
+    <Dropdown label="" inline={true} hidden={true}>
       {typesOfPets?.map((pet) => (
         <Dropdown.Item key={uuidv4()}>
           <Box sx={{ display: "flex" }}>
