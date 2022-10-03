@@ -31,7 +31,7 @@ export default function DropdownHome() {
 
   const typesOfPets = ["Dog", "Cat", "fish", "Parrot", "fox"];
   return (
-    <Dropdown label="" inline={true} className="">
+    <Dropdown label="" inline={true}>
       {typesOfPets?.map((pet) => (
         <Dropdown.Item key={uuidv4()}>
           <Box sx={{ display: "flex" }}>

@@ -14,13 +14,13 @@ import Link from "next/link";
 
 export const PetClinicDashboard = () => {
   return (
-    <div className=" touch-auto">
+    <div className="touch-auto ">
       <div className="bg-gray-800 p-4 ">
         <Title />
       </div>
-      <div className="grid grid-rows-auto-1fr gap-y-4 p-0 md:p-0  max-w-screen-lg mx-auto ">
+      <div className="grid grid-rows-auto-1fr gap-y-4 mx-6 sm:mx-6 md:mx-6 md:p-0  max-w-screen-lg lg:mx-auto xl:mx-auto 2xl:mx-auto ">
         <SearchBar />
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto  ">
           <Table />
         </div>
       </div>
@@ -111,7 +111,7 @@ const Table = () => {
       <ModalAddAndEdit />
       <table
         {...getTableProps()}
-        className="w-full"
+        className="w-full "
         style={{
           borderRight: "solid 3px #020675",
           borderLeft: "solid 3px #020675",
@@ -123,7 +123,7 @@ const Table = () => {
             <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <th
-                  className="px-3 snap-center whitespace-nowrap"
+                  className="px-3 snap-center whitespace-nowrap "
                   key={column.id}
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   style={{
@@ -135,15 +135,15 @@ const Table = () => {
                   {column.id === "icon" ? (
                     <p className="px-1">Edit</p>
                   ) : column.id === "petType" ? (
-                    <div className="inline-flex gap-2">
+                    <div className="flex gap-2 items-center">
                       {column.Header}
 
-                      <DropdownHome className="w-5 align-center" />
+                      <DropdownHome className="w-5 h-5 " />
                     </div>
                   ) : column.id === "userName" || column.id === "petName" ? (
                     column.isSorted ? (
                       column.isSortedDesc ? (
-                        <div className="inline-flex gap-2">
+                        <div className="inline-flex gap-2 ">
                           {column.Header}
                           <ChevronDownIcon className="w-5" />
                         </div>
