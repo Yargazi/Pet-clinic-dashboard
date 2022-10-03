@@ -11,12 +11,7 @@ import {
 import { useAppContext } from "../context/Context";
 
 export default function DropdownHome() {
-  const {
-    setSearchedUser,
-    patients: users,
-    dropdownToggle,
-    setDropdownToggle,
-  } = useAppContext();
+  const { setSearchedUser, patients: users } = useAppContext();
 
   const [state, setState] = React.useState({});
 
@@ -36,28 +31,30 @@ export default function DropdownHome() {
 
   const typesOfPets = ["Dog", "Cat", "fish", "Parrot", "fox"];
   return (
-    <Dropdown label="" inline={true} hidden={true}>
-      {typesOfPets?.map((pet) => (
-        <Dropdown.Item key={uuidv4()}>
-          <Box sx={{ display: "flex" }}>
-            <FormControl component="fieldset" variant="standard">
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value={pet}
-                      checked={state[pet.toLowerCase()]}
-                      onChange={handleChange}
-                      name={pet}
-                    />
-                  }
-                  label={pet}
-                />
-              </FormGroup>
-            </FormControl>
-          </Box>
-        </Dropdown.Item>
-      ))}
-    </Dropdown>
+    <>
+      <Dropdown label="" inline={true} display={"none"}>
+        {typesOfPets?.map((pet) => (
+          <Dropdown.Item key={uuidv4()}>
+            <Box sx={{ display: "flex" }}>
+              <FormControl component="fieldset" variant="standard">
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value={pet}
+                        checked={state[pet.toLowerCase()]}
+                        onChange={handleChange}
+                        name={pet}
+                      />
+                    }
+                    label={pet}
+                  />
+                </FormGroup>
+              </FormControl>
+            </Box>
+          </Dropdown.Item>
+        ))}
+      </Dropdown>
+    </>
   );
 }

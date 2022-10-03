@@ -58,7 +58,6 @@ export function AppWrapper({ children }) {
         patientsInfo,
         searchedUser,
         patients,
-
         setPatients,
         setSearchedUser,
         setModalOpen,
