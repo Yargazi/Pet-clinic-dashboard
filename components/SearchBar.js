@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import { Dropdown, TextInput } from "flowbite-react";
+import React from "react";
+import { TextInput } from "flowbite-react";
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
-
+import SelectSearchBar from "./SelectSearchBar";
 import { useAppContext } from "../context/Context";
 
 export default function SearchBar() {
   const {
     setModalOpen,
     setSelectedAction,
+    selectedTypeOfSearch,
     setSearchedUser,
     patients: users,
   } = useAppContext();
-  const [selectedTypeOfSearch, setSelectedTypeOfSearch] =
-    useState("Search type");
 
   const handleAction = () => {
     setModalOpen(true);
@@ -22,7 +21,7 @@ export default function SearchBar() {
   const handleSearch = (e, value, users) => {
     e.preventDefault();
 
-    if (selectedTypeOfSearch === "By pet name") {
+    if (selectedTypeOfSearch === "PetName") {
       const userArr = users.filter((user) =>
         user.petName.toLowerCase().includes(value.toLowerCase())
       );
@@ -35,25 +34,13 @@ export default function SearchBar() {
     }
   };
   return (
-    <div className="flex flex-row items-center gap-2 pt-6 pb-2 ">
-      <div className="flex-none ">
-        <Dropdown label={selectedTypeOfSearch} inline={true}>
-          <Dropdown.Item
-            onClick={() => setSelectedTypeOfSearch("By owner name")}
-          >
-            Search by name
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => setSelectedTypeOfSearch("By pet name")}>
-            Search by pet name
-          </Dropdown.Item>
-        </Dropdown>
-      </div>
+    <div className=" md:flex md:flex-row items-center gap-2 pt-6 pb-2  ">
+      <SelectSearchBar />
       <div className="grow ">
         <TextInput
           id="search"
           type="text"
           placeholder="Search"
-          className=""
           onChange={(e) => handleSearch(e, e.target.value, users)}
         />
       </div>
@@ -62,8 +49,10 @@ export default function SearchBar() {
           onClick={handleAction}
           className="flex items-center hover:text-secondary "
         >
-          <PlusCircleIcon className="w-10 h-10 flex-none" />
-          <span className="whitespace-nowrap">Add new patients</span>
+          <PlusCircleIcon className="w-10 h-10 flex-none mt-2 mr-1 md:mt-0" />
+          <span className="whitespace-nowrap mt-2 md:m-0">
+            Add new patients
+          </span>
         </button>
       </div>
     </div>

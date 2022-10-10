@@ -8,7 +8,6 @@ function classNames(...classes) {
 }
 
 export default function Dropdown() {
-  const { v4: uuidv4 } = require("uuid");
   const typesOfPets = ["Dog", "Cat", "fish", "Parrot", "fox"];
   const { petType, setPetType } = useAppContext();
 
@@ -36,7 +35,7 @@ export default function Dropdown() {
       >
         <Menu.Items className=" right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           {typesOfPets?.map((pet) => (
-            <div className="py-1" key={uuidv4()}>
+            <div className="py-1" key={pet}>
               <Menu.Item>
                 {({ active }) => (
                   <a

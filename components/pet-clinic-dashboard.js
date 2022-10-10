@@ -135,10 +135,10 @@ const Table = () => {
                   {column.id === "icon" ? (
                     <p className="px-1">Edit</p>
                   ) : column.id === "petType" ? (
-                    <div className="flex gap-2 items-center">
+                    <div className="flex gap-2 items-center justify-center">
                       {column.Header}
 
-                      <DropdownHome className="w-5 h-5 " />
+                      <DropdownHome className="w-4 h-4 " />
                     </div>
                   ) : column.id === "userName" || column.id === "petName" ? (
                     column.isSorted ? (

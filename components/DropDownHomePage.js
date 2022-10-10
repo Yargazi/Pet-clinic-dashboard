@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Dropdown } from "flowbite-react";
+import { HiChevronDown } from "react-icons/hi";
 
 import {
   Checkbox,
@@ -7,6 +7,8 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
+  IconButton,
+  Popover,
 } from "@mui/material";
 import { useAppContext } from "../context/Context";
 
@@ -15,7 +17,7 @@ export default function DropdownHome() {
 
   const [state, setState] = React.useState({});
 
-  const { v4: uuidv4 } = require("uuid");
+  const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
     setState({
@@ -29,32 +31,53 @@ export default function DropdownHome() {
     setSearchedUser(userArr);
   }, [state]);
 
+  const handleClick = (event) => {
+    setOpen(true);
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setOpen(false);
+    setAnchorEl(null);
+  };
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
   const typesOfPets = ["Dog", "Cat", "fish", "Parrot", "fox"];
   return (
     <>
-      <Dropdown label="" inline={true} display={"none"}>
+      <IconButton component="button" onClick={handleClick}>
+        <HiChevronDown color="white" />
+      </IconButton>
+
+      <Popover
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+      >
         {typesOfPets?.map((pet) => (
-          <Dropdown.Item key={uuidv4()}>
-            <Box sx={{ display: "flex" }}>
-              <FormControl component="fieldset" variant="standard">
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value={pet}
-                        checked={state[pet.toLowerCase()]}
-                        onChange={handleChange}
-                        name={pet}
-                      />
-                    }
-                    label={pet}
-                  />
-                </FormGroup>
-              </FormControl>
-            </Box>
-          </Dropdown.Item>
+          <Box key={pet} sx={{ display: "flex" }}>
+            <FormControl component="fieldset" variant="standard">
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      value={pet}
+                      checked={state[pet.toLowerCase()] || false}
+                      onChange={handleChange}
+                      name={pet}
+                    />
+                  }
+                  label={pet}
+                  className="px-4  "
+                />
+              </FormGroup>
+            </FormControl>
+          </Box>
         ))}
-      </Dropdown>
+      </Popover>
     </>
   );
 }
