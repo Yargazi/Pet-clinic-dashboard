@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useTable, useSortBy } from "react-table";
 import PencilIconcomponent from "../components/PencilIcon";
 import DropdownHome from "../components/DropDownHomePage";
 import ModalAddAndEdit from "./ModalAddAndEdit";
 import SearchBar from "./SearchBar";
+import ScrollButton from "./ScrollButton";
 import { useAppContext } from "../context/Context";
 import {
   ChevronUpDownIcon,
@@ -20,8 +21,9 @@ export const PetClinicDashboard = () => {
       </div>
       <div className="grid grid-rows-auto-1fr gap-y-4 mx-6 sm:mx-6 md:mx-6 md:p-0  max-w-screen-lg lg:mx-auto xl:mx-auto 2xl:mx-auto ">
         <SearchBar />
-        <div className="overflow-x-auto  ">
+        <div className="overflow-x-auto ">
           <Table />
+          <ScrollButton className="" />
         </div>
       </div>
     </div>
