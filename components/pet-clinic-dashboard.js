@@ -7,10 +7,12 @@ import SearchBar from "./SearchBar";
 import ScrollButton from "./ScrollButton";
 import { useAppContext } from "../context/Context";
 import {
-  ChevronUpDownIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-} from "@heroicons/react/20/solid";
+  HiChevronDown,
+  HiChevronUp,
+  HiOutlineSwitchVertical,
+} from "react-icons/hi";
+
+import { IconButton } from "@mui/material";
 import Link from "next/link";
 
 export const PetClinicDashboard = () => {
@@ -145,20 +147,26 @@ const Table = () => {
                   ) : column.id === "userName" || column.id === "petName" ? (
                     column.isSorted ? (
                       column.isSortedDesc ? (
-                        <div className="inline-flex gap-2 ">
+                        <div className="inline-flex gap-2 text-center items-center">
                           {column.Header}
-                          <ChevronDownIcon className="w-5" />
+                          <IconButton component="button" color="primary">
+                            <HiChevronDown className="w-5 text-white" />
+                          </IconButton>
                         </div>
                       ) : (
-                        <div className="inline-flex gap-2">
+                        <div className="inline-flex gap-2 text-center items-center">
                           {column.Header}
-                          <ChevronUpIcon className="w-5" />
+                          <IconButton component="button" color="primary">
+                            <HiChevronUp className="w-5 text-white" />
+                          </IconButton>
                         </div>
                       )
                     ) : (
-                      <div className="inline-flex gap-2">
+                      <div className="inline-flex gap-2 text-center items-center">
                         {column.Header}
-                        <ChevronUpDownIcon className="w-5" />
+                        <IconButton component="button" color="primary">
+                          <HiOutlineSwitchVertical className="w-5 text-white " />
+                        </IconButton>
                       </div>
                     )
                   ) : (

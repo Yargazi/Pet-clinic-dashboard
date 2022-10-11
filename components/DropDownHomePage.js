@@ -44,7 +44,7 @@ export default function DropdownHome() {
   const typesOfPets = ["Dog", "Cat", "fish", "Parrot", "fox"];
   return (
     <>
-      <IconButton component="button" onClick={handleClick}>
+      <IconButton component="button" color="primary" onClick={handleClick}>
         <HiChevronDown color="white" />
       </IconButton>
 
